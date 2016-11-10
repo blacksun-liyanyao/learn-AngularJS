@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body>
+<form ng-submit="requestFunding()" ng-controller="StartUpController">
+    Strating:<input ng-change="computeNeeded()" ng-model="startingEstimate">
+    Recommendation:{{needed}}
+    <button>Fund my startup!</button>
+    <button type="button" ng-click="reset()">Reset</button>
+</form>
+<script>
+    var myAppModule = angular.module('myApp',[]);
+
+    myAppModule.controller('StartUpController',[
+        '$scope',
+        function ($scope) {
+            $scope.computeNeeded = function () {
+                $scope.needed = $scope.startingEstimate * 10;
+            }
+
+            $scope.requestFunding = function () {
+                window.alert('Sorry , please get more customers first.');
+            }
+
+            $scope.reset = function () {
+                $scope.startingEstimate = 0;
+            }
+        }])
+</script>
+</body>
+</html>
