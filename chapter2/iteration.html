@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body>
+<div ng-controller="StudentListController">
+    <ul>
+        <li ng-repeat="student in students">
+            <a href="/student/view/{{student.id}}">{{student.name}}</a>
+        </li>
+        <button ng-click="insertTom()">Insert</button>
+    </ul>
+</div>
+<div ng-controller="AlbumController">
+    <table>
+        <tr ng-repeat="track in album">
+            <td>{{$index+1}}</td>
+            <td>{{track.name}}</td>
+            <td>{{track.duration}}</td>
+        </tr>
+    </table>
+</div>
+<script>
+
+    var myModule = angular.module('myApp',[]);
+
+    var students = [
+        {name:'Mary Contrary',id:1},
+        {name:'Jack Sprat',id:2},
+        {name:'Jill Hill',id:3}
+    ];
+    var album = [
+        {name:'Mary Contrary',duration:'2:34'},
+        {name:'Jack Sprat',duration:'3:21'},
+        {name:'Jill Hill',duration:'17:45'},
+    ]
+
+    myModule.controller('AlbumController',[
+        '$scope',
+        function ($scope) {
+            $scope.album = album;
+        }
+    ])
+
+    myModule.controller('StudentListController',[
+            '$scope',
+        function ($scope) {
+            $scope.students = students;
+
+            $scope.insertTom = function () {
+                $scope.students.splice(1,0,{name:'Tom Thumb',id:4});
+            }
+        }
+    ])
+</script>
+</body>
+</html>
