@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body ng-controller="TextController">
+<p>{{someText.message}}</p>
+<!--在index.html也就是入口文件中，在使用ng-bind进行数据绑定，-->
+<!--因为浏览器需要首先加载html页面并且渲染它，之后angular才有机会解析出内容-->
+<p ng-bind="someText.message"></p>
+<!--正确定义模块和控制器，全局定义controller方法已经在1.3之后被废弃-->
+<script>
+    var myAppModule = angular.module('myApp',[]);
+
+    myAppModule.controller('TextController', [
+        '$scope',
+        function ($scope) {
+        var someText = {};
+        someText.message = 'You have started your journey';
+        $scope.someText = someText;
+    }])
+</script>
+</body>
+</html>
