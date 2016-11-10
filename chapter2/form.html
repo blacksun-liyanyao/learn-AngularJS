@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body>
+<form ng-controller="StartUpController">
+    Starting : <input ng-model="funding.startingEstimate">
+    Recommendation:{{funding.needed}}
+</form>
+<script>
+    var myAppModule = angular.module('myApp',[]);
+//    ng-model会将funding.startingEstimate传入，当改变时触发ng-change，
+//    ng-change调用了computeNeeded方法，从而计算出funding.needed的值，
+//    并且{{funding.needed}}进行一个参数绑定显示
+    myAppModule.controller('StartUpController',[
+            '$scope',
+        function ($scope) {
+            $scope.funding = {startingEstimate:0};
+
+            $scope.computeNeeded = function () {
+                $scope.funding.needed = $scope.funding.startingEstimate * 10;
+            };
+//            $scope.$watch(function () {
+//                return $scope.funding.startingEstimate
+//            }, function (new_data,old_data) {
+//                $scope.funding.startingEstimate = new_data;
+//                $scope.computeNeeded();
+//            });
+            $scope.$watch('funding.startingEstimate',$scope.computeNeeded);
+
+        }
+    ])
+</script>
+</body>
+</html>
