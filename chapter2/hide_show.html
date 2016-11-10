@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body>
+<div ng-controller="DeathrayMenuController">
+    <button ng-click="toggleMenu()">Toggler Menu</button>
+    <ul ng-show='menuState.show'>
+        <li ng-click="stun()">Stun</li>
+        <li ng-click="stun()">Stun</li>
+        <li ng-click="stun()">Stun</li>
+    </ul>
+</div>
+<script>
+    var myModule = angular.module('myApp',[]);
+
+    myModule.controller('DeathrayMenuController',[
+            '$scope',
+        function ($scope) {
+            $scope.menuState = {};
+            $scope.menuState.show = false;
+
+            $scope.toggleMenu = function () {
+                $scope.menuState.show = !$scope.menuState.show;
+            }
+        }
+    ])
+</script>
+</body>
+</html>
