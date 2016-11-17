@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.js"></script>
+</head>
+<body>
+<hello></hello>
+<script>
+    var appModule = angular.module('app',[]);
+
+    appModule.directive('hello', function factory() {
+        var directiveDefinitionObject = {
+            restrict:'E',
+            template:'<div>Hello</div>',
+            replace:true
+        };
+    return directiveDefinitionObject;
+    })
+</script>
+</body>
+</html>
