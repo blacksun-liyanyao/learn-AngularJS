@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../jquery/dist/jquery.js"></script>
+    <script src="../angular/angular.js"></script>
+    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row-fluid">
+    <div class="span3" ng-controller="FilterCtrl">
+        <form class="form-horizontal">
+            <div class="controls-row">
+                <label class="control-label" for="searchTextBox">Search:</label>
+                <div class="controls">
+                    <input id="searchTextBox"
+                           type="text"
+                           ng-model="filterService.searchText"/>
+                </div>
+            </div>
+            <div class="controls-row">
+                <label class="control-label" for="sportComboBox">Sport:</label>
+                <div class="controls">
+                    <select id="sportComboBox" ng-model="filterService.activeFilters.sport">
+                        <option value="{{sport}}" ng-repeat="sport in ['Basketball','Football','Hockey']">
+                            {{sport}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="controls-row">
+                <label class="control-label" for="cityComboBox">City:</label>
+                <div class="controls">
+                    <select id="cityComboBox" ng-model="filterService.activeFilters.city">
+                        <option value="{{city}}" ng-repeat="city in ['Dallas','Los Angeles','Boston','New York']">
+                            {{city}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="controls-row">
+                <label class="control-label">Featured:</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="filterService.activeFilters.featured"
+                            ng-false-value=""/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="offset1 span8" ng-controller="ListCtrl">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Sport</th>
+                    <th>City</th>
+                    <th>Featured</th>
+                </tr>
+            </thead>
+            <tbody id="teamListTable">
+                <tr ng-repeat="team in teamsList | filter:filterService.activeFilters |
+                filter:filterService.searchText">
+                    <td>{{team.name}}</td>
+                    <td>{{team.sport}}</td>
+                    <td>{{team.city}}</td>
+                    <td>{{team.featured}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    angular.module('myApp.services',[])
+            .factory('filterService', function () {
+                return {
+                    activeFilters:{},
+                    searchText:''
+                }
+            })
+    var app = angular.module('myApp',['myApp.services']);
+
+    app.controller('FilterCtrl',[
+            '$scope',
+            'filterService',
+        function ($scope, filterService) {
+            $scope.filterService = filterService;
+        }
+    ])
+
+    app.controller('ListCtrl',[
+            '$scope',
+            'filterService',
+        function ($scope, filterService) {
+            $scope.filterService = filterService;
+            $scope.teamsList = [{
+                id:1,name:'Dallas Mavericks',sport:'Basketball',city:'Dallas',
+                featured:true
+                },
+                {
+                    id:2,name:'Dallas Cowboys',sport:'Football',city:'Dallas',
+                    featured:false
+                },
+                {
+                    id:3,name:'New York Knicks',sport:'Basketball',city:'New York',
+                    featured:false
+                },
+                {
+                    id:4,name:'Brooklyn Nets',sport:'Basketball',city:'New York',
+                    featured:false
+                },
+                {
+                    id:5,name:'New York Jets',sport:'Football',city:'New York',
+                    featured:false
+                },
+                {
+                    id:6,name:'New York Giants',sport:'Football',city:'New York',
+                    featured:true
+                },
+                {
+                    id:7,name:'Los Angeles Lakers',sport:'Basketball',city:'Los Angeles',
+                    featured:true
+                },
+                {
+                    id:8,name:'Los Angeles Clippers',sport:'Basketball',city:'Los Angeles',
+                    featured:false
+                },
+                {
+                    id:9,name:'Dallas Stars',sport:'Hockey',city:'Dallas',
+                    featured:false
+                },
+                {
+                    id:10,name:'Boston Bruins',sport:'Hockey',city:'Boston',
+                    featured:true
+                },
+            ]
+        }
+    ])
+</script>
+</body>
+</html>
