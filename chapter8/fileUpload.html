@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../jquery/dist/jquery.js"></script>
+<script src="../angular/angular.js"></script>
+<script src="../jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>
+<script src="../jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script>
+<script src="../jQuery-File-Upload-master/js/jquery.fileupload.js"></script>
+<script src="app.js"></script>
+<body ng-controller="MainCtrl">
+File Upload:
+<input id="testUpload" type="file" fileupload name="files[]"
+       data-url="/server/uploadFile" multiple done="uploadFinished(e,data)">
+</body>
+</html>
